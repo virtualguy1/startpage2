@@ -1,31 +1,5 @@
-function updateTimeAndGreeting() {
-    const clockElement = document.getElementById('clock');
-    const greetingElement = document.getElementById('greeting');
-    const now = new Date();
-
-    // Update Clock
-    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-    if (clockElement) clockElement.textContent = timeString;
-
-    // Update Greeting text for brutalist aesthetic
-    const hour = now.getHours();
-    let greeting = 'NIGHT';
-    if (hour >= 5 && hour < 12) {
-        greeting = 'MORNING';
-    } else if (hour >= 12 && hour < 17) {
-        greeting = 'AFTN';
-    } else if (hour >= 17 && hour <= 23) {
-        greeting = 'EVENING';
-    }
-
-    if (greetingElement) greetingElement.innerHTML = `GOOD<br>${greeting}`;
-}
-
-updateTimeAndGreeting();
-setInterval(updateTimeAndGreeting, 1000);
-
-function renderBookmarks() {
-    const container = document.getElementById('categories-grid');
+function renderBookmarks(containerId, bookmarks) {
+    const container = document.getElementById(containerId);
     if (!container || typeof bookmarks === 'undefined') return;
 
     let animationDelay = 0.1;
@@ -58,8 +32,16 @@ function renderBookmarks() {
             a.href = data.url;
             a.className = 'link-chip'; // custom chip class overriding basic Oat UI ones
 
-            // Build the string explicitly displaying the icon and textual representation
-            a.innerHTML = `<i class="${data.logo}"></i> <span>${data.displayUrl}</span>`;
+            // Build the string explicitly displaying the icon and textual representation securely
+            const icon = document.createElement('i');
+            icon.className = data.logo;
+
+            const span = document.createElement('span');
+            span.textContent = data.displayUrl;
+
+            a.appendChild(icon);
+            a.appendChild(document.createTextNode(' '));
+            a.appendChild(span);
 
             chipContainer.appendChild(a);
         }
@@ -71,5 +53,3 @@ function renderBookmarks() {
         animationDelay += 0.15;
     }
 }
-
-renderBookmarks();
