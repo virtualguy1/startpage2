@@ -19,17 +19,28 @@ body {
     overflow-x: hidden;
 }
 
-body::before {
+body::before,
+body::after {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
-    background-image: radial-gradient(var(--text-color) 1.5px, transparent 1.5px);
     background-size: 32px 32px;
+    z-index: 0;
+}
+
+body::before {
+    background-image: radial-gradient(var(--text-color) 1.5px, transparent 1.5px);
     opacity: 0.2;
     -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
     mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
-    z-index: 0;
+}
+
+body::after {
+    background-image: radial-gradient(var(--color-primary) 2.5px, transparent 2.5px);
+    opacity: 0.8;
+    -webkit-mask-image: radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%);
+    mask-image: radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%);
 }
 
 .editorial-layout {
