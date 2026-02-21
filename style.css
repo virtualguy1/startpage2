@@ -246,3 +246,156 @@ h1::after {
         margin-left: 0;
     }
 }
+
+/* Anilist Section */
+.section-heading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    margin: 0 0 1rem 0;
+    color: var(--text-color);
+    letter-spacing: -0.02em;
+    border-bottom: 2px solid var(--text-color);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.anime-deck-container {
+    width: 100%;
+    position: relative;
+    /* Height accommodates the card height + stacking offset */
+    height: 180px;
+    margin-bottom: 2rem;
+    perspective: 1000px;
+}
+
+.anime-track {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.anime-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--bg-color);
+    border: 2px solid var(--text-color);
+    box-shadow: 4px 4px 0 var(--text-color);
+    padding: 1.25rem;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    cursor: pointer;
+    transform-origin: center center;
+    /* Default hidden state for cards beyond the visible stack */
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(0, 0, -100px) translateY(20px);
+}
+
+/* 
+  We will use data-index attributes set by JS to style the top 4 cards in the stack.
+  0 is the front card, 1 is behind it, etc.
+*/
+
+.anime-card[data-index="0"] {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+    transform: translate3d(0, 0, 0) translateY(0);
+    box-shadow: 6px 6px 0 var(--color-primary);
+}
+
+.anime-card[data-index="1"] {
+    opacity: 1;
+    z-index: 9;
+    /* Moved down and scaled slightly */
+    transform: translate3d(8px, 8px, -20px) scale(0.98);
+    box-shadow: 4px 4px 0 var(--text-color);
+}
+
+.anime-card[data-index="2"] {
+    opacity: 0.8;
+    z-index: 8;
+    transform: translate3d(16px, 16px, -40px) scale(0.96);
+    box-shadow: 2px 2px 0 rgba(17, 17, 17, 0.5);
+}
+
+.anime-card[data-index="3"] {
+    opacity: 0.4;
+    z-index: 7;
+    transform: translate3d(24px, 24px, -60px) scale(0.94);
+    box-shadow: 1px 1px 0 rgba(17, 17, 17, 0.2);
+}
+
+/* The card currently animating away */
+.anime-card.animating-out {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(-50px, -20px, 50px) rotate(-5deg);
+}
+
+.anime-card:hover[data-index="0"] {
+    transform: translate3d(-4px, -4px, 10px);
+    box-shadow: 10px 10px 0 var(--color-primary);
+}
+
+.anime-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.anime-ep {
+    background: var(--text-color);
+    color: var(--bg-color);
+    padding: 0.15rem 0.4rem;
+}
+
+.anime-time {
+    color: var(--color-primary);
+}
+
+.anime-title {
+    font-family: var(--font-mono);
+    font-weight: 800;
+    font-size: 1.1rem;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1.1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.anime-count {
+    position: absolute;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.anime-error {
+    font-family: var(--font-mono);
+    color: var(--color-primary);
+    font-weight: bold;
+    padding: 1rem;
+    border: 2px dashed var(--color-primary);
+}

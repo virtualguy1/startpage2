@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initClock('clock', 'greeting');
     renderBookmarks('categories-grid', bookmarks);
+    initAnilist('anilist-container');
 });
 
 window.addEventListener('mousemove', (e) => {
