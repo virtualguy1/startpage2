@@ -1,5 +1,5 @@
 const bookmarks = {
-    General: {
+    Main: {
         gmail: {
             url: "https://mail.google.com/",
             logo: "fa-brands fa-google",
@@ -37,6 +37,12 @@ const bookmarks = {
             logo: "fa-solid fa-download",
             displayUrl: "subsplease.org",
         },
+        snowfl: {
+            url: "https://snowfl.com/",
+            logo: "fa-solid fa-download",
+            displayUrl: "snowfl.com",
+        },
+
     },
     Work: {
         github: {
