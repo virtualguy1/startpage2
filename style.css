@@ -70,7 +70,7 @@ body::after {
 h1 {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-size: clamp(3.5rem, 8vw, 5rem);
     line-height: 0.85;
     text-transform: uppercase;
     letter-spacing: -0.04em;
