@@ -1,6 +1,6 @@
 # Startpage
 
-A minimalist, highly styled custom startpage/new tab page designed with striking typography and clean aesthetics. It is built using vanilla HTML, CSS, and JavaScript.
+A minimalist, highly styled custom startpage/new tab page designed with striking typography and clean aesthetics. It is built using vanilla HTML, CSS, JavaScript and Gemini 3.1 using frontend design skill.
 
 ![Screenshot](Screenshot.png)
 
