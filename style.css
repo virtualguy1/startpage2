@@ -70,7 +70,7 @@ body::after {
 h1 {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: clamp(3.5rem, 8vw, 5rem);
+    font-size: clamp(3rem, 8vw, 4.5rem);
     line-height: 0.85;
     text-transform: uppercase;
     letter-spacing: -0.04em;
@@ -175,6 +175,7 @@ h1::after {
     font-family: var(--font-display);
     font-weight: 800;
     font-size: 2rem;
+    color: var(--text-color);
     text-transform: uppercase;
     margin-top: 0;
     border-bottom: 2px solid var(--text-color);
