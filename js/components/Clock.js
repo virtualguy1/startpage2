@@ -14,13 +14,19 @@ function initClock(clockId, greetingId) {
         // Update Greeting text for brutalist aesthetic
         const hour = now.getHours();
         let greeting = 'NIGHT';
+        let theme = 'dark';
         if (hour >= 5 && hour < 12) {
             greeting = 'MORNING';
+            theme = 'light';
         } else if (hour >= 12 && hour < 17) {
             greeting = 'AFTN';
+            theme = 'light';
         } else if (hour >= 17 && hour <= 23) {
             greeting = 'EVENING';
+            theme = 'dark';
         }
+
+        document.documentElement.setAttribute('data-theme', theme);
 
         if (greetingElement) {
             // Using DOM methods instead of innerHTML for better LLD security
