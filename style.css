@@ -6,8 +6,18 @@
     --text-color: #111111;
 }
 
+:root[data-theme="dark"] {
+    --bg-color: #111111;
+    --text-color: #d6d1c4;
+}
+
+:root[data-theme="light"] {
+    --bg-color: #d6d1c4;
+    --text-color: #111111;
+}
+
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme="light"]) {
         --bg-color: #111111;
         --text-color: #d6d1c4;
     }
