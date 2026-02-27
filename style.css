@@ -6,6 +6,13 @@
     --text-color: #111111;
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #111111;
+        --text-color: #d6d1c4;
+    }
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -129,7 +136,7 @@ h1::after {
 }
 
 .search-form input::placeholder {
-    color: #777;
+    color: color-mix(in srgb, var(--text-color) 60%, transparent);
 }
 
 .search-form button {
@@ -327,14 +334,14 @@ h1::after {
     opacity: 0.8;
     z-index: 8;
     transform: translate3d(16px, 16px, -40px) scale(0.96);
-    box-shadow: 2px 2px 0 rgba(17, 17, 17, 0.5);
+    box-shadow: 2px 2px 0 color-mix(in srgb, var(--text-color) 50%, transparent);
 }
 
 .anime-card[data-index="3"] {
     opacity: 0.4;
     z-index: 7;
     transform: translate3d(24px, 24px, -60px) scale(0.94);
-    box-shadow: 1px 1px 0 rgba(17, 17, 17, 0.2);
+    box-shadow: 1px 1px 0 color-mix(in srgb, var(--text-color) 20%, transparent);
 }
 
 /* The card currently animating away */
