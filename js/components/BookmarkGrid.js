@@ -1,55 +1,67 @@
+// Each category window gets its own accent, like per-workspace colors.
+const CATEGORY_ACCENTS = ['blue', 'peach', 'green', 'mauve'];
+
 function renderBookmarks(containerId, bookmarks) {
     const container = document.getElementById(containerId);
     if (!container || typeof bookmarks === 'undefined') return;
 
-    let animationDelay = 0.1;
+    Object.entries(bookmarks).forEach(([category, linksObj], i) => {
+        const win = document.createElement('section');
+        win.className = 'window win-links stagger-in';
+        win.id = `ws-${i + 1}`;
+        win.style.setProperty('--accent', `var(--${CATEGORY_ACCENTS[i % CATEGORY_ACCENTS.length]})`);
+        win.style.animationDelay = `${0.12 + i * 0.07}s`;
 
-    for (const [category, linksObj] of Object.entries(bookmarks)) {
-        // create wrapper for grid row spacing 
-        const colDiv = document.createElement('div');
-        colDiv.className = 'col-6 stagger-in';
-        colDiv.style.animationDelay = `${animationDelay}s`;
-        colDiv.style.marginBottom = '2.5rem';
+        const titlebar = document.createElement('div');
+        titlebar.className = 'titlebar';
 
-        // Root card element (re-using Oat UI class conceptually)
-        const article = document.createElement('article');
-        article.className = 'card';
+        const dots = document.createElement('span');
+        dots.className = 'dots';
+        dots.setAttribute('aria-hidden', 'true');
+        for (let d = 0; d < 3; d++) dots.appendChild(document.createElement('i'));
 
-        // Custom Header element
-        const header = document.createElement('header');
-        const h3 = document.createElement('h3');
-        h3.textContent = category;
-        header.appendChild(h3);
-        article.appendChild(header);
+        const title = document.createElement('span');
+        title.className = 'win-title';
+        title.textContent = `~/${category.toLowerCase()}`;
 
-        // Container for link chips
-        const chipContainer = document.createElement('div');
-        chipContainer.className = 'chip-container';
+        const hint = document.createElement('span');
+        hint.className = 'win-hint';
+        hint.textContent = `[${i + 1}]`;
 
-        // Loop over the Object inside the category (iterating object keys)
+        titlebar.append(dots, title, hint);
+
+        const body = document.createElement('div');
+        body.className = 'win-body';
+
         for (const [name, data] of Object.entries(linksObj)) {
             const a = document.createElement('a');
             a.href = data.url;
-            a.className = 'link-chip'; // custom chip class overriding basic Oat UI ones
+            a.className = 'link-row';
 
-            // Build the string explicitly displaying the icon and textual representation securely
+            const iconTile = document.createElement('span');
+            iconTile.className = 'link-icon';
             const icon = document.createElement('i');
             icon.className = data.logo;
+            icon.setAttribute('aria-hidden', 'true');
+            iconTile.appendChild(icon);
 
-            const span = document.createElement('span');
-            span.textContent = data.displayUrl;
+            const text = document.createElement('span');
+            text.className = 'link-text';
 
-            a.appendChild(icon);
-            a.appendChild(document.createTextNode(' '));
-            a.appendChild(span);
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'link-name';
+            nameSpan.textContent = name;
 
-            chipContainer.appendChild(a);
+            const urlSpan = document.createElement('span');
+            urlSpan.className = 'link-url';
+            urlSpan.textContent = data.displayUrl;
+
+            text.append(nameSpan, urlSpan);
+            a.append(iconTile, text);
+            body.appendChild(a);
         }
 
-        article.appendChild(chipContainer);
-        colDiv.appendChild(article);
-        container.appendChild(colDiv);
-
-        animationDelay += 0.15;
-    }
+        win.append(titlebar, body);
+        container.appendChild(win);
+    });
 }

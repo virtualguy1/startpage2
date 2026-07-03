@@ -4,49 +4,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startpage</title>
+    <title>~/startpage</title>
 
-    <!-- Bold Typography choices following frontend-design: Syne & Fragment Mono -->
+    <!-- JetBrains Mono for system text, Archivo Black for the loud display moments -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fragment+Mono:ital@0;1&family=Syne:wght@400..800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Archivo+Black&display=swap"
         rel="stylesheet">
 
-    <!-- Font Awesome for Logos from data.js -->
+    <!-- Font Awesome for logos from data.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Oat UI (Baseline) -->
-    <link rel="stylesheet" href="https://unpkg.com/@knadh/oat/oat.min.css">
-    <script src="https://unpkg.com/@knadh/oat/oat.min.js" defer></script>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="editorial-layout">
-        <!-- Sidebar Typography Block -->
-        <aside class="title-section stagger-in" style="animation-delay: 0s;">
-            <h1 id="greeting">HELLO</h1>
-            <div id="clock" class="time-display">00:00:00</div>
-
-            <form action="https://duckduckgo.com/" method="get" class="search-form">
-                <input type="search" name="q" placeholder="duckduckgo" required autofocus aria-label="Search">
-                <button type="submit">GO</button>
-            </form>
-
-            <!-- Anilist side-scroll container -->
-            <div class="stagger-in" style="animation-delay: 0.1s; margin-top: 2rem;">
-                <h2 class="section-heading">Anime</h2>
-                <div id="anilist-container" class="anime-deck-container"></div>
+    <div class="desktop">
+        <!-- Status bar -->
+        <header class="bar stagger-in">
+            <nav class="bar-ws" aria-label="Workspaces">
+                <button class="ws" data-ws="1" style="--accent: var(--blue)" aria-label="Workspace 1">1</button>
+                <button class="ws" data-ws="2" style="--accent: var(--peach)" aria-label="Workspace 2">2</button>
+                <button class="ws" data-ws="3" style="--accent: var(--green)" aria-label="Workspace 3">3</button>
+                <button class="ws" data-ws="4" style="--accent: var(--mauve)" aria-label="Workspace 4">4</button>
+            </nav>
+            <div class="bar-center">~/startpage</div>
+            <div class="bar-right">
+                <span id="bar-date"></span>
+                <span id="bar-clock" class="bar-clock">00:00:00</span>
+                <span class="palette-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
             </div>
-        </aside>
+        </header>
 
-        <!-- Right Grid For Cards -->
-        <main>
-            <div class="row" id="categories-grid">
-                <!-- Javascript will dynamically inject articles heavily styled into this container -->
-            </div>
-        </main>
+        <div class="tiles">
+            <!-- Greeting terminal -->
+            <section class="window win-greet stagger-in" style="--accent: var(--lavender); animation-delay: 0.05s;">
+                <div class="titlebar">
+                    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="win-title">~/clock</span>
+                    <span class="win-hint">zsh</span>
+                </div>
+                <div class="win-body terminal">
+                    <p class="prompt-line" aria-hidden="true"><span class="p-user">abhinav</span><span
+                            class="p-at">@</span><span class="p-host">startpage</span> <span class="p-dir">~</span>
+                        <span class="p-chev">❯</span> now<span class="cursor"></span>
+                    </p>
+                    <pre id="ascii-greeting" class="ascii-art" aria-hidden="true"></pre>
+                    <p id="greet-line" class="term-out"></p>
+
+                    <form action="https://duckduckgo.com/" method="get" class="search-line">
+                        <label class="p-chev" for="search" aria-hidden="true">❯</label>
+                        <input id="search" type="search" name="q" placeholder="search duckduckgo…" required autofocus
+                            autocomplete="off" aria-label="Search DuckDuckGo">
+                        <button type="submit" class="search-go" aria-label="Search">↵</button>
+                    </form>
+                    <p class="term-hint"><kbd>/</kbd> search · <kbd>1</kbd>–<kbd>4</kbd> jump to window</p>
+                </div>
+            </section>
+
+            <!-- Airing anime deck -->
+            <section class="window win-anime stagger-in" style="--accent: var(--red); animation-delay: 0.1s;">
+                <div class="titlebar">
+                    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="win-title">~/anime</span>
+                    <button id="anime-next" class="win-action" aria-label="Next airing anime">»</button>
+                </div>
+                <div class="win-body">
+                    <div id="anilist-container" class="anime-deck-container"></div>
+                </div>
+            </section>
+
+            <!-- Bookmark windows injected by BookmarkGrid.js -->
+            <div class="win-grid" id="categories-grid"></div>
+        </div>
     </div>
 
     <script src="js/data.js" defer></script>

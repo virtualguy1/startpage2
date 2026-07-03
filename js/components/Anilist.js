@@ -121,14 +121,26 @@ function renderAnilistCards(data, containerId) {
 
         const title = anime.title.romaji || 'Unknown Title';
 
-        card.innerHTML = `
-            <div class="anime-meta">
-                <span class="anime-ep">${epInfo}</span>
-                <span class="anime-time">${timeInfo}</span>
-            </div>
-            <h4 class="anime-title" title="${title}">${title}</h4>
-            <div class="anime-count">${index + 1}/${animeList.length}</div>
-        `;
+        const meta = document.createElement('div');
+        meta.className = 'anime-meta';
+        const ep = document.createElement('span');
+        ep.className = 'anime-ep';
+        ep.textContent = epInfo;
+        const time = document.createElement('span');
+        time.className = 'anime-time';
+        time.textContent = timeInfo;
+        meta.append(ep, time);
+
+        const heading = document.createElement('h4');
+        heading.className = 'anime-title';
+        heading.title = title;
+        heading.textContent = title;
+
+        const count = document.createElement('div');
+        count.className = 'anime-count';
+        count.textContent = `${index + 1}/${animeList.length}`;
+
+        card.append(meta, heading, count);
 
         track.appendChild(card);
     });
@@ -171,6 +183,12 @@ function initDeckLogic(track) {
 
             isAnimating = false;
         }, 300); // matches the 0.4s CSS transition roughly
+    }
+
+    // Titlebar » button to cycle
+    const nextButton = document.getElementById('anime-next');
+    if (nextButton) {
+        nextButton.addEventListener('click', cycleDeck);
     }
 
     // Scroll wheel to cycle
