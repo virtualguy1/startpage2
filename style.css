@@ -1,8 +1,10 @@
 /* ===================================================================
    ~/startpage — a riced tiling-WM desktop, cut like a punk zine
    Neo-brutalist: flat ink borders, hard offset shadows, zero radius.
-   Day: paper windows on an ultramarine wallpaper. Night: dark panels
-   with off-white ink. Accent names are the JS contract — keep them.
+   Mono-blue palette: black / ink-black / prussian / charcoal / lavender.
+   Night: lavender ink on prussian panels. Day: the same ramp inverted.
+   Accent names are the JS contract — keep them; their values are all
+   tints on the charcoal→lavender ramp now.
    =================================================================== */
 
 :root {
@@ -13,41 +15,48 @@
     --bw: 3px;
     /* the ink border weight everything hangs on */
 
-    /* night (default) — off-white ink on dark panels */
-    --wall: #0e0e13;
-    --panel: #191920;
-    --ink: #f1efe6;
-    --text: #f1efe6;
-    --subtext: #b9b9c2;
-    --overlay: #82828e;
-    --on-accent: #101013;
+    /* the palette */
+    --black: #000000;
+    --ink-black: #0c1821;
+    --prussian-blue: #1b2a41;
+    --charcoal-blue: #324a5f;
 
-    --red: #ff5c5c;
-    --peach: #ff9f1c;
-    --yellow: #ffd500;
-    --green: #22dd88;
-    --blue: #6fa0ff;
-    --mauve: #c273ff;
-    --lavender: #a0a8ff;
+    /* night (default) — lavender ink on prussian panels, black wall */
+    --wall: var(--black);
+    --panel: var(--prussian-blue);
+    --ink: #ccc9dc;
+    --text: #ccc9dc;
+    --subtext: #a6a9bd;
+    --overlay: #778397;
+    --on-accent: var(--ink-black);
+
+    /* charcoal→lavender ramp, brightest first (lolcat rows fade down) */
+    --red: #ccc9dc;
+    --peach: #b5b6c9;
+    --yellow: #9ea3b7;
+    --green: #8790a4;
+    --blue: #707d91;
+    --mauve: #596a7e;
+    --lavender: #ccc9dc;
 }
 
 :root[data-theme="light"] {
-    /* day — near-black ink on paper, cobalt wallpaper */
-    --wall: #2438e8;
-    --panel: #fdfcf7;
-    --ink: #101013;
-    --text: #101013;
-    --subtext: #4d4d58;
-    --overlay: #75757f;
-    --on-accent: #101013;
+    /* day — the ramp flipped: ink-black on lavender paper, charcoal wall */
+    --wall: #324a5f;
+    --panel: #ccc9dc;
+    --ink: #0c1821;
+    --text: #0c1821;
+    --subtext: #324a5f;
+    --overlay: #607085;
+    --on-accent: #ccc9dc;
 
-    --red: #ef2d2d;
-    --peach: #f07300;
-    --yellow: #e3a600;
-    --green: #00a857;
-    --blue: #2b5fe8;
-    --mauve: #9b30e8;
-    --lavender: #6a5bff;
+    --red: #1b2a41;
+    --peach: #273a50;
+    --yellow: #324a5f;
+    --green: #495d72;
+    --blue: #607085;
+    --mauve: #0c1821;
+    --lavender: #1b2a41;
 }
 
 * {
@@ -74,7 +83,7 @@ body {
 
 ::selection {
     background: var(--yellow);
-    color: #101013;
+    color: var(--on-accent);
 }
 
 :focus-visible {
@@ -213,7 +222,7 @@ kbd {
     min-height: 0;
     display: grid;
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    grid-template-rows: minmax(0, 1.15fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
     gap: var(--gap);
 }
 
@@ -378,7 +387,7 @@ kbd {
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: #101013;
+    color: var(--on-accent);
     background: var(--yellow);
     border: 2px solid var(--ink);
     box-shadow: 3px 3px 0 var(--ink);
